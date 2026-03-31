@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velour Fine Dining & Bar</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #111111;
+      --surface: #1a1a1a;
+      --surface-2: #222222;
+      --text: #f4efe6;
+      --muted: #b8aa95;
+      --accent: #c69b63;
+      --accent-dark: #9f7747;
+      --border: rgba(255,255,255,0.08);
+      --max: 1200px;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    .container { width: min(100% - 32px, var(--max)); margin: 0 auto; }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(10px);
+      background: rgba(17,17,17,0.78);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 0;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      letter-spacing: 1px;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      background:
+        linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.72)),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+      text-align: center;
+    }
+
+    .hero-content {
+      max-width: 820px;
+      padding: 40px 0;
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      font-size: 0.8rem;
+      margin-bottom: 18px;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Cormorant Garamond', serif;
+      line-height: 1.1;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 7vw, 6rem);
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto 28px;
+      color: #eee2d2;
+      font-size: 1.05rem;
+    }
+
+    .btn-row {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 24px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      font-weight: 600;
+      transition: 0.25s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #111;
+    }
+
+    .btn-primary:hover { background: #d9ac73; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border-color: rgba(255,255,255,0.2);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.06);
+    }
+
+    section {
+      padding: 88px 0;
+    }
+
+    .section-head {
+      text-align: center;
+      margin-bottom: 42px;
+    }
+
+    .section-head h2 {
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      margin-bottom: 10px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+    }
+
+    .card h3 {
+      font-size: 1.8rem;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+
+    .card p { color: #d8cfc3; }
+
+    .menu-tabs {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+
+    .mtab {
+      padding: 12px 18px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .mtab.active {
+      background: var(--accent);
+      color: #111;
+      border-color: var(--accent);
+    }
+
+    .menu-panel { display: none; }
+    .menu-panel.active { display: block; }
+
+    .menu-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .mitem {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+    }
+
+    .mitem-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    .mitem h4 {
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .price {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .gallery img {
+      border-radius: 18px;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      border: 1px solid var(--border);
+    }
+
+    .review-card {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .review-card strong {
+      color: var(--accent);
+      display: block;
+      margin-top: 14px;
+    }
+
+    .reservation-wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+    }
+
+    form {
+      display: grid;
+      gap: 18px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #151515;
+      color: var(--text);
+      outline: none;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .success {
+      display: none;
+      margin-top: 16px;
+      color: #8fd39b;
+      font-weight: 600;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 28px 0;
+      color: var(--muted);
+      background: #0c0c0c;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 900px) {
+      .grid-3,
+      .gallery,
+      .menu-list,
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .hero {
+        min-height: 82vh;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="#" class="logo">Velour</a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#menu">Menu</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#reserve">Reserve</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-content">
+      <div class="eyebrow">Fine Dining • Crafted Evenings</div>
+      <h1>Where flavor meets atmosphere.</h1>
+      <p>
+        Velour Fine Dining & Bar brings together refined cuisine, signature cocktails,
+        and an intimate modern setting designed for memorable nights.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#reserve">Book a Table</a>
+        <a class="btn btn-secondary" href="#menu">Explore Menu</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>About Velour</h2>
+        <p>An elevated dining destination built around seasonal ingredients, elegant plating, and warm service.</p>
+      </div>
+      <div class="grid-3">
+        <div class="card reveal">
+          <h3>Seasonal</h3>
+          <p>Our menu changes with the rhythm of fresh produce, premium cuts, and chef-driven inspirations.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Signature Bar</h3>
+          <p>Handcrafted cocktails, curated wines, and rare spirits complete the Velour evening experience.</p>
+        </div>
+        <div class="card reveal">
+          <h3>Atmosphere</h3>
+          <p>Luxury interiors, candlelit details, and intimate seating create a setting made for celebration.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Featured Menu</h2>
+        <p>Explore our chef-curated selections across starters, mains, and desserts.</p>
+      </div>
+
+      <div class="menu-tabs reveal">
+        <button class="mtab active" data-mtab="starters">Starters</button>
+        <button class="mtab" data-mtab="mains">Mains</button>
+        <button class="mtab" data-mtab="desserts">Desserts</button>
+      </div>
+
+      <div class="menu-panel active" id="mp-starters">
+        <div class="menu-list">
+          <div class="mitem reveal">
+            <div class="mitem-top"><h4>Truffle Wild Mushroom Tart</h4><span class="price">₹780</span></div>
+            <p>Buttery crust, ricotta cream, parmesan, and truffle oil.</p>
+          </div>
+          <div class="mitem reveal">
+            <div class="mitem-top"><h4>Smoked Burrata Plate</h4><span class="price">₹860</span></div>
+            <p>Heirloom tomatoes, basil pearls, and balsamic glaze.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-panel" id="mp-mains">
+        <div class="menu-list">
+          <div class="mitem reveal">
+            <div class="mitem-top"><h4>Charred Herb Salmon</h4><span class="price">₹1,480</span></div>
+            <p>Served with lemon butter, greens, and saffron rice.</p>
+          </div>
+          <div class="mitem reveal">
+            <div class="mitem-top"><h4>Velour Signature Steak</h4><span class="price">₹1,950</span></div>
+            <p>Prime cut steak with pepper glaze and roasted garlic mash.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="menu-panel" id="mp-desserts">
+        <div class="menu-list">
+          <div class="mitem reveal">
+            <div class="mitem-top"><h4>Dark Chocolate Dome</h4><span class="price">₹540</span></div>
+            <p>Belgian chocolate shell with hazelnut praline center.</p>
+          </div>
+          <div class="mitem reveal">
+            <div class="mitem-top"><h4>Saffron Milk Cake</h4><span class="price">₹460</span></div>
+            <p>Soft sponge layered with saffron cream and pistachio dust.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Dining Moments</h2>
+        <p>A glimpse into the textures, plating, and mood of the Velour experience.</p>
+      </div>
+      <div class="gallery">
+        <img class="reveal" src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=900&q=80" alt="Restaurant table setup">
+        <img class="reveal" src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=900&q=80" alt="Elegant plated food">
+        <img class="reveal" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=900&q=80" alt="Luxury dining interior">
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Guest Impressions</h2>
+        <p>What diners remember most: flavor, ambience, and attention to detail.</p>
+      </div>
+      <div class="grid-3">
+        <div class="review-card reveal">
+          <p>“An incredibly polished dining experience. The steak and cocktails were both exceptional.”</p>
+          <strong>— Aarya M.</strong>
+        </div>
+        <div class="review-card reveal">
+          <p>“Beautiful interiors, calm music, and food that truly felt premium from start to finish.”</p>
+          <strong>— Rohan K.</strong>
+        </div>
+        <div class="review-card reveal">
+          <p>“Perfect for celebrations. Elegant, warm, and worth coming back for.”</p>
+          <strong>— Meera S.</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reserve">
+    <div class="container">
+      <div class="section-head reveal">
+        <h2>Reserve Your Evening</h2>
+        <p>Request a table and we’ll confirm your reservation shortly.</p>
+      </div>
+
+      <div class="reservation-wrap reveal">
+        <form onsubmit="submitForm(event)">
+          <div class="form-grid">
+            <input type="text" placeholder="Your name" required>
+            <input type="email" placeholder="Email address" required>
+          </div>
+          <div class="form-grid">
+            <input type="date" required>
+            <input type="time" required>
+          </div>
+          <div class="form-grid">
+            <select required>
+              <option value="">Guests</option>
+              <option>2 Guests</option>
+              <option>4 Guests</option>
+              <option>6 Guests</option>
+              <option>8+ Guests</option>
+            </select>
+            <input type="tel" placeholder="Phone number" required>
+          </div>
+          <textarea placeholder="Special request"></textarea>
+          <button class="btn btn-primary rform-submit" type="submit">Request Reservation</button>
+        </form>
+        <div class="success" id="formSuccess">✓ Your reservation request has been sent.</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2026 Velour Fine Dining & Bar. All rights reserved.</span>
+        <span>Privacy Policy · Terms of Service · Sitemap</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelectorAll('.mtab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.mtab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('mp-' + tab.dataset.mtab).classList.add('active');
+      });
+    });
+
+    function submitForm(e) {
+      e.preventDefault();
+      const btn = e.target.querySelector('.rform-submit');
+      btn.textContent = '✓ Request Sent!';
+      btn.style.opacity = '0.7';
+      btn.disabled = true;
+      document.getElementById('formSuccess').style.display = 'block';
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
